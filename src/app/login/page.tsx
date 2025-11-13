@@ -1,3 +1,5 @@
+'use client';
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -5,8 +7,20 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Logo from "@/components/logo"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const [role, setRole] = useState('admin');
+  const router = useRouter();
+
+  const handleLogin = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('userRole', role);
+    }
+    router.push('/dashboard');
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-secondary">
        <div className="absolute top-8 left-8">
@@ -44,7 +58,7 @@ export default function LoginPage() {
             </div>
             <div className="grid gap-2">
                 <Label htmlFor="role">Role</Label>
-                <RadioGroup defaultValue="admin" className="flex gap-4">
+                <RadioGroup defaultValue="admin" onValueChange={setRole} className="flex gap-4">
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="admin" id="admin" />
                     <Label htmlFor="admin">Admin</Label>
@@ -55,8 +69,8 @@ export default function LoginPage() {
                   </div>
                 </RadioGroup>
             </div>
-            <Button type="submit" className="w-full" asChild>
-                <Link href="/dashboard">Login</Link>
+            <Button type="submit" className="w-full" onClick={handleLogin}>
+                Login
             </Button>
           </div>
           <div className="mt-4 text-center text-sm">
