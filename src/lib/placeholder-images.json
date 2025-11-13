@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "user-avatar",
+      "description": "Generic user avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1521119989659-a83eee488004?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjI5MzU5MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "printed-doc",
+      "description": "Scanned printed document",
+      "imageUrl": "https://images.unsplash.com/photo-1625225229083-f256754cf34e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkb2N1bWVudCUyMHBhcGVyfGVufDB8fHx8MTc2MzAyMTQzMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "document paper"
+    },
+    {
+      "id": "handwritten-doc",
+      "description": "Scanned handwritten document",
+      "imageUrl": "https://images.unsplash.com/photo-1558018753-65b7bbfd92da?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxoYW5kd3JpdHRlbiUyMG5vdGV8ZW58MHx8fHwxNzYyOTk3MDQzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "handwritten note"
+    },
+    {
+      "id": "failed-doc",
+      "description": "A blurry document that would fail OCR",
+      "imageUrl": "https://images.unsplash.com/photo-1706523872697-412c5a4b54c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxibHVycnklMjB0ZXh0fGVufDB8fHx8MTc2MzAyMTQyOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "blurry text"
+    }
+  ]
 }
