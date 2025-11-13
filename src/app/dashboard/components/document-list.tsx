@@ -26,6 +26,14 @@ const statusStyles: Record<DocumentStatus, string> = {
 };
 
 export function DocumentList() {
+  if (documents.length === 0) {
+    return (
+        <div className="border rounded-lg py-12">
+            <p className="text-center text-muted-foreground">You haven't uploaded any documents yet.</p>
+        </div>
+    )
+  }
+
   return (
     <div className="border rounded-lg">
       <Table>

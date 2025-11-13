@@ -2,12 +2,30 @@ import { documents } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { DocumentEditor } from './components/document-editor';
+import { Card, CardContent } from '@/components/ui/card';
+import { AlertCircle } from 'lucide-react';
 
 export default function DocumentPage({ params }: { params: { id: string } }) {
   const document = documents.find(doc => doc.id === params.id);
 
-  if (!document || !document.pages.length) {
+  if (!document) {
     notFound();
+  }
+
+  if (document.pages.length === 0) {
+    return (
+        <Card>
+            <CardContent className="pt-6">
+                <div className="flex flex-col items-center justify-center h-96 text-center">
+                    <AlertCircle className="w-12 h-12 text-muted-foreground mb-4" />
+                    <h2 className="text-xl font-semibold">Document is processing</h2>
+                    <p className="text-muted-foreground">
+                        The document "{document.title}" is currently being processed. <br/> Please check back later.
+                    </p>
+                </div>
+            </CardContent>
+        </Card>
+    );
   }
 
   const page = document.pages[0];

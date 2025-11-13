@@ -41,37 +41,41 @@ export function AdminTabs() {
                         <CardDescription>Manage your application's users.</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>User</TableHead>
-                                    <TableHead>Role</TableHead>
-                                    <TableHead>Created At</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {users.map(user => (
-                                    <TableRow key={user.id}>
-                                        <TableCell>
-                                            <div className="flex items-center gap-3">
-                                                <Avatar className="h-9 w-9">
-                                                    <AvatarImage src={user.avatarUrl} alt="Avatar" data-ai-hint="person portrait" />
-                                                    <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
-                                                </Avatar>
-                                                <div className="grid gap-0.5">
-                                                    <p className="font-medium">{user.name}</p>
-                                                    <p className="text-sm text-muted-foreground">{user.email}</p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Badge variant={user.role === 'admin' ? 'default' : 'secondary'}>{user.role}</Badge>
-                                        </TableCell>
-                                        <TableCell>{format(new Date(user.createdAt), 'PPpp')}</TableCell>
+                        {users.length > 0 ? (
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>User</TableHead>
+                                        <TableHead>Role</TableHead>
+                                        <TableHead>Created At</TableHead>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                                </TableHeader>
+                                <TableBody>
+                                    {users.map(user => (
+                                        <TableRow key={user.id}>
+                                            <TableCell>
+                                                <div className="flex items-center gap-3">
+                                                    <Avatar className="h-9 w-9">
+                                                        <AvatarImage src={user.avatarUrl} alt="Avatar" data-ai-hint="person portrait" />
+                                                        <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                                                    </Avatar>
+                                                    <div className="grid gap-0.5">
+                                                        <p className="font-medium">{user.name}</p>
+                                                        <p className="text-sm text-muted-foreground">{user.email}</p>
+                                                    </div>
+                                                </div>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Badge variant={user.role === 'admin' ? 'default' : 'secondary'}>{user.role}</Badge>
+                                            </TableCell>
+                                            <TableCell>{format(new Date(user.createdAt), 'PPpp')}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        ) : (
+                            <div className="text-center text-muted-foreground py-12">No users found.</div>
+                        )}
                     </CardContent>
                 </Card>
             </TabsContent>
@@ -82,33 +86,37 @@ export function AdminTabs() {
                         <CardDescription>A list of all documents uploaded by users.</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Title</TableHead>
-                                    <TableHead>User</TableHead>
-                                    <TableHead>Status</TableHead>
-                                    <TableHead>Created At</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {documents.map(doc => {
-                                    const user = users.find(u => u.id === doc.userId) as User;
-                                    return (
-                                        <TableRow key={doc.id}>
-                                            <TableCell className="font-medium">{doc.title}</TableCell>
-                                            <TableCell>{user.name}</TableCell>
-                                            <TableCell>
-                                                <Badge variant="outline" className={cn("border-none", statusStyles[doc.status])}>
-                                                    {doc.status}
-                                                </Badge>
-                                            </TableCell>
-                                            <TableCell>{format(new Date(doc.createdAt), 'PPpp')}</TableCell>
-                                        </TableRow>
-                                    )
-                                })}
-                            </TableBody>
-                        </Table>
+                         {documents.length > 0 ? (
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Title</TableHead>
+                                        <TableHead>User</TableHead>
+                                        <TableHead>Status</TableHead>
+                                        <TableHead>Created At</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {documents.map(doc => {
+                                        const user = users.find(u => u.id === doc.userId);
+                                        return (
+                                            <TableRow key={doc.id}>
+                                                <TableCell className="font-medium">{doc.title}</TableCell>
+                                                <TableCell>{user?.name || 'Unknown'}</TableCell>
+                                                <TableCell>
+                                                    <Badge variant="outline" className={cn("border-none", statusStyles[doc.status])}>
+                                                        {doc.status}
+                                                    </Badge>
+                                                </TableCell>
+                                                <TableCell>{format(new Date(doc.createdAt), 'PPpp')}</TableCell>
+                                            </TableRow>
+                                        )
+                                    })}
+                                </TableBody>
+                            </Table>
+                        ) : (
+                            <div className="text-center text-muted-foreground py-12">No documents found.</div>
+                        )}
                     </CardContent>
                 </Card>
             </TabsContent>
@@ -119,37 +127,41 @@ export function AdminTabs() {
                         <CardDescription>Monitor the status of background processing jobs.</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Job ID</TableHead>
-                                    <TableHead>Document ID</TableHead>
-                                    <TableHead>Status</TableHead>
-                                    <TableHead>Progress</TableHead>
-                                    <TableHead>Created At</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {jobs.map(job => (
-                                    <TableRow key={job.id}>
-                                        <TableCell className="font-mono text-xs">{job.id}</TableCell>
-                                        <TableCell className="font-mono text-xs">{job.documentId}</TableCell>
-                                        <TableCell>
-                                            <Badge variant="outline" className={cn("border-none", jobStatusStyles[job.status])}>
-                                                {job.status}
-                                            </Badge>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center gap-2">
-                                                <Progress value={job.progress} className="h-2 w-24" />
-                                                <span>{job.progress}%</span>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>{format(new Date(job.createdAt), 'PPpp')}</TableCell>
+                        {jobs.length > 0 ? (
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Job ID</TableHead>
+                                        <TableHead>Document ID</TableHead>
+                                        <TableHead>Status</TableHead>
+                                        <TableHead>Progress</TableHead>
+                                        <TableHead>Created At</TableHead>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                                </TableHeader>
+                                <TableBody>
+                                    {jobs.map(job => (
+                                        <TableRow key={job.id}>
+                                            <TableCell className="font-mono text-xs">{job.id}</TableCell>
+                                            <TableCell className="font-mono text-xs">{job.documentId}</TableCell>
+                                            <TableCell>
+                                                <Badge variant="outline" className={cn("border-none", jobStatusStyles[job.status])}>
+                                                    {job.status}
+                                                </Badge>
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="flex items-center gap-2">
+                                                    <Progress value={job.progress} className="h-2 w-24" />
+                                                    <span>{job.progress}%</span>
+                                                </div>
+                                            </TableCell>
+                                            <TableCell>{format(new Date(job.createdAt), 'PPpp')}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        ) : (
+                             <div className="text-center text-muted-foreground py-12">No jobs found.</div>
+                        )}
                     </CardContent>
                 </Card>
             </TabsContent>

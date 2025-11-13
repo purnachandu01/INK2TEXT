@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Logo from "@/components/logo"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 export default function LoginPage() {
   return (
@@ -29,6 +30,7 @@ export default function LoginPage() {
                 type="email"
                 placeholder="m@example.com"
                 required
+                defaultValue="admin@ink2text.com"
               />
             </div>
             <div className="grid gap-2">
@@ -38,7 +40,20 @@ export default function LoginPage() {
                   Forgot your password?
                 </Link>
               </div>
-              <Input id="password" type="password" required />
+              <Input id="password" type="password" required defaultValue="password" />
+            </div>
+            <div className="grid gap-2">
+                <Label htmlFor="role">Role</Label>
+                <RadioGroup defaultValue="admin" className="flex gap-4">
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="admin" id="admin" />
+                    <Label htmlFor="admin">Admin</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="user" id="user" />
+                    <Label htmlFor="user">User</Label>
+                  </div>
+                </RadioGroup>
             </div>
             <Button type="submit" className="w-full" asChild>
                 <Link href="/dashboard">Login</Link>
